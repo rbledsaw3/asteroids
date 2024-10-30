@@ -7,6 +7,12 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     player = Player(SCREEN_WIDTH//2, SCREEN_HEIGHT//2)
 
+    updatable = pygame.sprite.Group()
+    updatable.add(player)
+
+    drawable = pygame.sprite.Group()
+    drawable.add(player)
+
     clock = pygame.time.Clock()
     dt = 0
     while True:
@@ -16,8 +22,12 @@ def main():
                 return
 
         screen.fill((0, 0, 0))
-        player.update(dt)
-        player.draw(screen)
+
+        for sprite in updatable:
+            sprite.update(dt)
+
+        for sprite in drawable:
+            sprite.draw(screen)
 
         pygame.display.flip()
 
